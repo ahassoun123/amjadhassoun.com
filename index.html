@@ -2,568 +2,1098 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Amjad Hassoun - Resume</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1c1c1e">
+    <title>Amjad Hassoun</title>
     <style>
-        /* Base Reset & iOS Typography */
         :root {
-            --ios-bg: #F2F2F7;
-            --ios-card: #FFFFFF;
-            --ios-text: #000000;
-            --ios-subtext: #8E8E93;
-            --ios-blue: #007AFF;
-            --ios-border: #C6C6C8;
+            --bg:               #ececec;
+            --sidebar-bg:       #d9d9d9;
+            --panel-bg:         #f5f5f5;
+            --surface:          rgba(255,255,255,0.72);
+            --surface-solid:    #ffffff;
+            --stroke:           rgba(0,0,0,0.08);
+            --stroke-mid:       rgba(0,0,0,0.11);
+            --stroke-strong:    rgba(0,0,0,0.14);
+            --text-primary:     #000000;
+            --text-secondary:   rgba(0,0,0,0.55);
+            --text-muted:       rgba(0,0,0,0.38);
+            --accent:           #007aff;
+            --accent-soft:      rgba(0,122,255,0.12);
+            --selected-bg:      rgba(0,122,255,0.18);
+            --selected-text:    #007aff;
+            --row-hover:        rgba(0,0,0,0.04);
+            --separator:        rgba(0,0,0,0.08);
+            --chip-bg:          rgba(0,0,0,0.06);
+            --link:             #007aff;
+            --shadow-window:    0 22px 60px rgba(0,0,0,0.28), 0 4px 12px rgba(0,0,0,0.14);
+            --shadow-card:      0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+            --radius-window:    14px;
+            --radius-card:      12px;
+            --radius-row:       8px;
+            --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", sans-serif;
+            --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+            --sidebar-w: 240px;
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --ios-bg: #1C1C1E;
-                --ios-card: #2C2C2E;
-                --ios-text: #FFFFFF;
-                --ios-subtext: #EBEBF5;
+                --bg:               #1c1c1e;
+                --sidebar-bg:       #2c2c2e;
+                --panel-bg:         #3a3a3c;
+                --surface:          rgba(58,58,60,0.92);
+                --surface-solid:    #3a3a3c;
+                --stroke:           rgba(255,255,255,0.06);
+                --stroke-mid:       rgba(255,255,255,0.09);
+                --stroke-strong:    rgba(255,255,255,0.13);
+                --text-primary:     #ffffff;
+                --text-secondary:   rgba(255,255,255,0.60);
+                --text-muted:       rgba(255,255,255,0.38);
+                --accent:           #0a84ff;
+                --accent-soft:      rgba(10,132,255,0.18);
+                --selected-bg:      rgba(10,132,255,0.24);
+                --selected-text:    #0a84ff;
+                --row-hover:        rgba(255,255,255,0.05);
+                --separator:        rgba(255,255,255,0.07);
+                --chip-bg:          rgba(255,255,255,0.08);
+                --link:             #0a84ff;
+                --shadow-window:    0 22px 60px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.30);
+                --shadow-card:      0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20);
             }
         }
 
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--ios-bg);
-            color: var(--ios-text);
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
+            overflow: hidden;
         }
 
-        /* --- iOS Alert Overlay --- */
-        #alert-overlay {
+        /* ── Window Chrome ── */
+        .window {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            inset: 32px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.3s ease;
+            flex-direction: column;
+            border-radius: var(--radius-window);
+            overflow: hidden;
+            box-shadow: var(--shadow-window);
+            background: var(--bg);
         }
 
-        .alert-box {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            width: 270px;
-            border-radius: 14px;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        .titlebar {
+            flex-shrink: 0;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: var(--sidebar-bg);
+            border-bottom: 1px solid var(--stroke);
+            gap: 8px;
+            position: relative;
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: filter 120ms ease;
+        }
+
+        .traffic-light.close  { background: #ff5f57; border: 0.5px solid rgba(0,0,0,0.12); }
+        .traffic-light.min    { background: #febc2e; border: 0.5px solid rgba(0,0,0,0.12); }
+        .traffic-light.expand { background: #28c840; border: 0.5px solid rgba(0,0,0,0.12); }
+
+        .titlebar-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            pointer-events: none;
+        }
+
+        /* ── Layout ── */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--stroke);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @supports (color: color-mix(in srgb, white, black)) {
-            @media (prefers-color-scheme: dark) {
-                .alert-box {
-                    background: rgba(30, 30, 30, 0.75);
-                }
-            }
+        .sidebar-search {
+            padding: 10px 12px 8px;
         }
 
-        .alert-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin: 18px 16px 2px;
-        }
-
-        .alert-message {
-            font-size: 13px;
-            margin: 0 16px 16px;
-            line-height: 1.3;
-        }
-
-        .alert-actions {
+        .search-input-wrap {
             display: flex;
-            border-top: 0.5px solid var(--ios-border);
+            align-items: center;
+            gap: 6px;
+            background: var(--surface);
+            border: 1px solid var(--stroke-mid);
+            border-radius: 8px;
+            padding: 5px 10px;
+            backdrop-filter: blur(20px);
         }
 
-        .alert-btn {
+        .search-icon {
+            color: var(--text-muted);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .search-input {
             flex: 1;
-            padding: 11px 0;
-            font-size: 17px;
-            color: var(--ios-blue);
             background: transparent;
             border: none;
+            outline: none;
+            font-family: var(--font);
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .search-input::placeholder { color: var(--text-muted); }
+
+        /* Profile row in sidebar */
+        .sidebar-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px 14px;
             cursor: pointer;
+            border-radius: var(--radius-row);
+            margin: 0 4px 2px;
+            transition: background 100ms ease;
         }
 
-        .alert-btn.cancel {
-            border-right: 0.5px solid var(--ios-border);
-            font-weight: 400;
+        .sidebar-profile:hover { background: var(--row-hover); }
+        .sidebar-profile.active { background: var(--selected-bg); }
+
+        .sidebar-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--accent);
+            border: 1px solid var(--stroke-mid);
         }
 
-        .alert-btn.accept {
+        .sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .sidebar-profile-info {
+            min-width: 0;
+        }
+
+        .sidebar-profile-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .sidebar-profile-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: var(--separator);
+            margin: 4px 12px 8px;
+        }
+
+        .sidebar-section-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0 16px 4px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 4px 12px;
+            scrollbar-width: none;
+        }
+
+        .sidebar-nav::-webkit-scrollbar { display: none; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 12px;
+            border-radius: var(--radius-row);
+            cursor: pointer;
+            transition: background 100ms ease;
+            user-select: none;
+        }
+
+        .nav-item:hover { background: var(--row-hover); }
+
+        .nav-item.active {
+            background: var(--selected-bg);
+        }
+
+        .nav-item.active .nav-label {
+            color: var(--selected-text);
             font-weight: 600;
         }
 
-        /* --- Main Content Container --- */
-        #main-content {
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            opacity: 0.3; /* Initially blurred via overlay */
-            transition: opacity 0.3s ease;
+        .nav-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
         }
 
-        #main-content.active {
-            opacity: 1;
+        .nav-label {
+            font-size: 13px;
+            color: var(--text-primary);
         }
 
-        /* --- iOS Settings Style Cards --- */
-        .header-profile {
+        /* ── Main panel ── */
+        .main-panel {
+            flex: 1;
+            overflow-y: auto;
+            background: var(--panel-bg);
+            padding: 28px 32px 40px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--stroke-strong) transparent;
+        }
+
+        .main-panel::-webkit-scrollbar { width: 6px; }
+        .main-panel::-webkit-scrollbar-thumb {
+            background: var(--stroke-strong);
+            border-radius: 3px;
+        }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+
+        /* ── Profile panel ── */
+        .profile-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 0 28px;
             text-align: center;
-            margin: 20px 0 30px;
         }
 
-        .header-profile h1 {
-            font-size: 34px;
+        .profile-avatar-large {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid var(--stroke-mid);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+            margin-bottom: 14px;
+        }
+
+        .profile-avatar-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .profile-name {
+            font-size: 22px;
             font-weight: 700;
-            margin: 0 0 10px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.022em;
+            margin-bottom: 4px;
         }
 
-        .contact-links {
+        .profile-eyebrow {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .profile-summary {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 12px auto 0;
+            text-align: center;
+        }
+
+        /* Settings-style grouped rows */
+        .settings-group {
+            background: var(--surface);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--stroke-mid);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .settings-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--separator);
+            transition: background 80ms ease;
+            cursor: default;
+            min-height: 44px;
+        }
+
+        .settings-row:last-child { border-bottom: none; }
+        .settings-row:hover { background: var(--row-hover); }
+
+        .settings-row-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .settings-row-label {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .settings-row-value {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: right;
+            max-width: 55%;
+        }
+
+        .settings-row-value a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        .settings-row-value a:hover { text-decoration: underline; }
+
+        .settings-row-chevron {
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        .group-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding: 0 4px 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* Tags / chips */
+        .chip-row {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-            font-size: 14px;
+            gap: 6px;
+            padding: 12px 16px;
         }
 
-        .contact-links a {
-            color: var(--ios-blue);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            background: var(--ios-card);
-            padding: 6px 12px;
-            border-radius: 12px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        }
-
-        .download-btn {
-            margin-top: 16px;
-            padding: 10px 18px;
-            border: none;
+        .chip {
+            padding: 4px 10px;
             border-radius: 999px;
-            background: var(--ios-blue);
-            color: #FFFFFF;
+            background: var(--chip-bg);
+            border: 1px solid var(--stroke-mid);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Section headings inside main panel */
+        .panel-heading {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.022em;
+            margin-bottom: 20px;
+        }
+
+        /* Experience / entry cards */
+        .entry-group {
+            background: var(--surface);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--stroke-mid);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .entry-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 16px 0;
+        }
+
+        .entry-org {
             font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 10px 24px rgba(0, 122, 255, 0.2);
+            letter-spacing: -0.01em;
         }
 
-        .download-btn:hover {
-            filter: brightness(0.95);
+        .entry-dates {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding-top: 2px;
         }
 
-        .download-btn:focus-visible {
-            outline: 2px solid var(--ios-blue);
-            outline-offset: 3px;
+        .entry-location {
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 2px 16px 0;
         }
 
-        .section-title {
-            font-size: 13px;
-            text-transform: uppercase;
-            color: var(--ios-subtext);
-            margin: 20px 0 8px 16px;
+        .entry-divider {
+            height: 1px;
+            background: var(--separator);
+            margin: 12px 16px 0;
         }
 
-        .card-group {
-            background-color: var(--ios-card);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 24px;
+        /* Role rows inside entry */
+        .role-block {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--separator);
         }
 
-        .card-item {
-            padding: 16px;
-            border-bottom: 0.5px solid var(--ios-border);
-        }
+        .role-block:last-child { border-bottom: none; }
 
-        .card-item:last-child {
-            border-bottom: none;
-        }
-
-        .card-header {
+        .role-name-row {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: baseline;
+            gap: 8px;
             margin-bottom: 6px;
         }
 
-        .card-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .card-subtitle {
-            font-size: 15px;
-            color: var(--ios-subtext);
-            margin: 0;
-        }
-
-        .card-date {
+        .role-name {
             font-size: 13px;
-            color: var(--ios-subtext);
-            text-align: right;
+            font-weight: 600;
+        }
+
+        .role-dates-inline {
+            font-size: 11px;
+            color: var(--text-muted);
             white-space: nowrap;
         }
 
-        .card-body {
-            font-size: 15px;
-            line-height: 1.4;
-            color: var(--ios-text);
+        .role-muted .role-name { color: var(--text-secondary); font-weight: 500; }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 5px;
         }
 
-        .card-body ul {
-            margin: 8px 0 0;
-            padding-left: 20px;
+        .bullet-list li {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            padding-left: 14px;
+            position: relative;
         }
 
-        .card-body li {
-            margin-bottom: 6px;
+        .bullet-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
         }
 
-        .badge {
+        .entry-links-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px 16px 14px;
+        }
+
+        .entry-link-chip {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 8px;
+            background: var(--chip-bg);
+            border: 1px solid var(--stroke-mid);
+            font-size: 12px;
+            color: var(--link);
+            text-decoration: none;
+            transition: background 100ms ease;
+        }
+
+        .entry-link-chip:hover { background: var(--accent-soft); }
+
+        /* Standalone entry (no roles) */
+        .simple-entry {
+            padding: 14px 16px;
+        }
+
+        .simple-entry-sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Facts (skills table) */
+        .facts-group {
+            background: var(--surface);
+            border-radius: var(--radius-card);
+            border: 1px solid var(--stroke-mid);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .fact-row {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            padding: 11px 16px;
+            border-bottom: 1px solid var(--separator);
+            min-height: 44px;
+        }
+
+        .fact-row:last-child { border-bottom: none; }
+
+        .fact-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            width: 160px;
+            flex-shrink: 0;
+        }
+
+        .fact-value {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Notes (events/awards prose) */
+        .note-row {
+            padding: 11px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .note-row:last-child { border-bottom: none; }
+        .note-row a { color: var(--link); text-decoration: none; }
+        .note-row a:hover { text-decoration: underline; }
+
+        /* Award highlight row */
+        .award-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--separator);
+        }
+
+        .award-row:last-child { border-bottom: none; }
+
+        .award-title {
+            font-size: 13px;
             font-weight: 600;
         }
 
-        .btn-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--ios-blue);
-            text-decoration: none;
-            font-weight: 500;
+        .award-badge {
+            font-size: 11px;
+            color: #ff9f0a;
+            font-weight: 600;
+            background: rgba(255,159,10,0.12);
+            border: 1px solid rgba(255,159,10,0.25);
+            padding: 3px 8px;
+            border-radius: 999px;
         }
 
-        /* Animations */
-        @keyframes popIn {
-            0% { transform: scale(1.1); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        /* ── iOS Notification ── */
+        #ios-notif {
+            position: fixed;
+            top: 48px;
+            right: 48px;
+            z-index: 9999;
+            width: 300px;
+            background: var(--surface);
+            border: 1px solid var(--stroke-strong);
+            border-radius: 16px;
+            backdrop-filter: blur(40px) saturate(2);
+            -webkit-backdrop-filter: blur(40px) saturate(2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.12);
+            padding: 12px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            transform: translateY(calc(-100% - 60px));
+            opacity: 0;
+            transition: transform 520ms cubic-bezier(0.34, 1.2, 0.64, 1),
+                        opacity 280ms ease;
         }
 
-        @media print {
-            @page {
-                margin: 0.6in;
-                size: letter;
-            }
+        #ios-notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
 
-            button,
-            #alert-overlay,
-            .download-btn {
-                display: none !important;
-            }
+        #ios-notif.hide {
+            transform: translateY(calc(-100% - 60px));
+            opacity: 0;
+            transition: transform 380ms cubic-bezier(0.4, 0, 1, 1),
+                        opacity 260ms ease;
+        }
 
-            body,
-            #main-content {
-                background: #FFFFFF !important;
-                color: #000000 !important;
-            }
+        #notif-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--accent);
+        }
 
-            body {
-                font-family: "Times New Roman", Times, serif;
-                overflow: visible;
-            }
+        #notif-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
 
-            #main-content {
-                max-width: none;
-                padding: 0;
-                margin: 0;
-                opacity: 1 !important;
-            }
+        #notif-text { flex: 1; min-width: 0; }
 
-            .header-profile {
-                margin: 0 0 18px;
-            }
+        #notif-app {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
 
-            .header-profile h1 {
-                font-size: 24pt;
-                margin-bottom: 10px;
-            }
+        #notif-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
 
-            .section-title {
-                margin: 18px 0 6px;
-                padding-bottom: 4px;
-                font-size: 11pt;
-                color: #000000;
-                border-bottom: 1px solid #000000;
-            }
+        #notif-body {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-top: 1px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-            .card-group {
-                background: transparent !important;
-                box-shadow: none !important;
+        /* ── Mobile fallback ── */
+        @media (max-width: 700px) {
+            html, body { overflow: auto; }
+
+            .window {
+                position: static;
+                inset: unset;
                 border-radius: 0;
-                margin-bottom: 10px;
+                box-shadow: none;
+                min-height: 100svh;
+            }
+
+            .titlebar { display: none; }
+
+            .app-body { flex-direction: column; }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--stroke);
+                max-height: 220px;
+            }
+
+            .main-panel {
+                padding: 20px 16px 40px;
                 overflow: visible;
             }
 
-            .card-item {
-                padding: 0 !important;
-                border: none !important;
-                margin-bottom: 14px;
-                break-inside: avoid;
-            }
-
-            .card-header {
-                margin-bottom: 4px;
-            }
-
-            .card-title,
-            .badge,
-            strong {
-                color: #000000;
-            }
-
-            .card-subtitle,
-            .card-date,
-            .card-body,
-            .alert-title,
-            .alert-message {
-                color: #000000 !important;
-            }
-
-            .card-date {
-                font-size: 10pt;
-            }
-
-            .card-body {
-                font-size: 11pt;
-                line-height: 1.35;
-            }
-
-            .btn-link,
-            .contact-links a,
-            a {
-                color: #000000 !important;
-                background: transparent !important;
-                box-shadow: none !important;
-                text-decoration: none;
-                padding: 0;
-            }
-
-            .contact-links {
-                display: block;
-                text-align: center;
-            }
-
-            .contact-links a {
-                display: inline;
-                margin: 0 8px;
-            }
-
-            ul {
-                margin-top: 6px;
+            #ios-notif {
+                top: 12px;
+                right: 12px;
+                width: calc(100vw - 24px);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- iOS Notification Alert -->
-    <div id="alert-overlay">
-        <div class="alert-box">
-            <div class="alert-title">iMessage</div>
-            <div class="alert-message">Amjad Hassoun has shared his resume with you</div>
-            <div class="alert-actions">
-                <button class="alert-btn cancel" onclick="alert('Try again. 😅')">Cancel</button>
-                <button class="alert-btn accept" onclick="dismissAlert()">Accept</button>
-            </div>
+<div class="window">
+    <!-- Titlebar -->
+    <div class="titlebar">
+        <div class="traffic-lights">
+            <div class="traffic-light close"></div>
+            <div class="traffic-light min"></div>
+            <div class="traffic-light expand"></div>
         </div>
+        <span class="titlebar-title">Amjad Hassoun — Resume</span>
     </div>
 
-    <!-- Main App/Resume Container -->
-    <div id="main-content">
-        
-        <div class="header-profile">
-            <h1>Amjad Hassoun</h1>
-            <div class="contact-links">
-                <a href="mailto:mail@amjadhassoun.com">📧 Email</a>
-                <a href="https://linkedin.com/in/amjadhassoun" target="_blank">💼 LinkedIn</a>
-                <a href="https://github.com/amjadhassoun123123" target="_blank">💻 GitHub</a>
-            </div>
-            <button onclick="window.print()" class="download-btn" type="button">Download PDF</button>
-        </div>
+    <!-- Body -->
+    <div class="app-body">
 
-        <div class="section-title">Technical Skills</div>
-        <div class="card-group">
-            <div class="card-item">
-                <div class="card-body">
-                    <div style="margin-bottom: 8px;"><span class="badge">Languages:</span> Python, JavaScript, TypeScript, HTML/CSS</div>
-                    <div style="margin-bottom: 8px;"><span class="badge">AI & Machine Learning:</span> Generative AI (LLMs), RAG, LangChain</div>
-                    <div style="margin-bottom: 8px;"><span class="badge">Developer Tools:</span> Git, Google Cloud Platform (GCP), Firebase, Canvas LMS API, XCode</div>
-                    <div><span class="badge">Soft Skills:</span> Bilingual (English/French), Technical Presentations, Agile Methodology, Client Relations</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title">Experience</div>
-        <div class="card-group">
-            
-            <!-- Job 1 & 2 (TFS Progression) -->
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Toronto French School (TFS)</h3>
-                    </div>
-                    <div class="card-date">Toronto, ON<br>Sept 2023 - Présent</div>
-                </div>
-                <div class="card-body" style="margin-top: 16px;">
-                    <!-- Role 1 -->
-                    <div style="position: relative; padding-left: 20px; border-left: 2px solid var(--ios-border); padding-bottom: 16px;">
-                        <div style="position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ios-blue);"></div>
-                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 2px;">Ingénieur en IA et Administrateur Système</div>
-                        <div style="font-size: 13px; color: var(--ios-subtext); margin-bottom: 8px;">Août 2024 - Présent</div>
-                        <ul>
-                            <li>Superviser les systèmes cloud, renforcer la sécurité et soutenir l'intégration de Gemini (Google AI).</li>
-                            <li>Concevoir et déployer des applications web pour l'administration scolaire et les inscriptions.</li>
-                            <li>Maintenir l'Active Directory de TFS et Google Workspace pour l'ensemble de l'organisation.</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Role 2 -->
-                    <div style="position: relative; padding-left: 20px; border-left: 2px solid transparent;">
-                        <div style="position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ios-subtext);"></div>
-                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 2px;">Spécialiste S.T.E.A.M.</div>
-                        <div style="font-size: 13px; color: var(--ios-subtext); margin-bottom: 8px;">Sept 2023 - Juil 2024</div>
-                        <ul>
-                            <li>Présenter la technologie de l'IA aux élèves et encourager l'évaluation critique de son éthique.</li>
-                            <li>Créer des démonstrations d'IA en exploitant des modèles de pointe (LLMs, Generative AI).</li>
-                            <li>Collaborer avec la Tech Society pour intégrer l'IA générative dans les initiatives élèves.</li>
-                        </ul>
-                    </div>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-search">
+                <div class="search-input-wrap">
+                    <span class="search-icon">⌕</span>
+                    <input class="search-input" type="text" placeholder="Search" id="sidebar-search" autocomplete="off">
                 </div>
             </div>
 
-            <!-- Job 3 -->
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Spurry Inc</h3>
-                        <p class="card-subtitle">iOS App Developer</p>
-                    </div>
-                    <div class="card-date">Remote<br>May 2022 - Sep 2023</div>
+            <!-- Profile identity row -->
+            <div class="sidebar-profile active" data-target="profile">
+                <div class="sidebar-avatar">
+                    <img src="amjad.png" alt="Amjad Hassoun">
                 </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Co-developed the askCody chatbot and an adaptive AI-driven flashcard system for personalized learning.</li>
-                        <li>Developed an offline Python interpreter on iOS to streamline coding processes and enhance privacy.</li>
-                        <li>Collaborated on education-focused mobile apps, improving programming learning experiences.</li>
-                    </ul>
-                    <a href="https://apps.apple.com/" class="btn-link" target="_blank">↗ Python Academy on the App Store</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title">Projects</div>
-        <div class="card-group">
-            
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Outlier</h3>
-                        <p class="card-subtitle">Data Scientist - AI Training</p>
-                    </div>
-                    <div class="card-date">March 2024 - Aug 2025</div>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Analyzed AI model responses for the reinforcement learning (RLHF) team to improve response quality.</li>
-                        <li>Evaluated correctness, logic, and safety performance across different Large Language Models (LLMs).</li>
-                        <li>Synthesized complex data into actionable insights to refine model training algorithms.</li>
-                    </ul>
+                <div class="sidebar-profile-info">
+                    <div class="sidebar-profile-name">Amjad Hassoun</div>
+                    <div class="sidebar-profile-sub">AI Engineer</div>
                 </div>
             </div>
 
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Q-Tools Chrome Extension</h3>
-                        <p class="card-subtitle">JavaScript, Canvas API, AI Integration</p>
-                    </div>
-                    <div class="card-date">Dec 2023 - April 2024</div>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Developed a Chrome Extension to expand and customize the interface of the Canvas LMS.</li>
-                        <li>Integrated AI capabilities enabling users to chat with modules, add notes, and query content directly.</li>
-                        <li>Scalable solution currently used to assist students in interfacing with external content.</li>
-                    </ul>
-                    <a href="https://studenthub.study/" class="btn-link" target="_blank">↗ Q-Tools Website</a>
-                </div>
-            </div>
+            <div class="sidebar-divider"></div>
 
-        </div>
+            <!-- Nav sections -->
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- injected by JS -->
+            </nav>
+        </aside>
 
-        <div class="section-title">Education</div>
-        <div class="card-group">
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">University of Toronto</h3>
-                        <p class="card-subtitle">Honours Bachelor of Science in Computer Science</p>
-                    </div>
-                    <div class="card-date">Mississauga, ON<br>Sept 2019 - Apr 2024</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-title">Events & Awards</div>
-        <div class="card-group">
-            <div class="card-item">
-                <div class="card-header">
-                    <div>
-                        <h3 class="card-title">Scotiabank Hackathon S:\HA&lt;KS 2021</h3>
-                        <p class="card-subtitle">First Place Winner</p>
-                    </div>
-                    <div class="card-date">Sep 2021</div>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>Won 1st place by creating an accessible fintech solution for Scotiabank's digital offerings.</li>
-                    </ul>
-                    <a href="https://www.utm.utoronto.ca/math-cs-stats/news/mcs-students-win-1st-place-scotiabanks-shacks-hackathon" class="btn-link" target="_blank">↗ UTM News Feature</a>
-                </div>
-            </div>
-            
-            <div class="card-item">
-                <div class="card-body" style="padding-top: 4px;">
-                    <div style="margin-bottom: 12px;"><strong>Presented Q-Tools</strong> at <a href="https://toronto.aitinkerers.org/p/ai-tinkerers-toronto-inaugural-meetup" target="_blank" style="color: var(--ios-blue); text-decoration: none;">AI Tinkerers Toronto - Inaugural Meetup</a> <em>(April 2024)</em></div>
-                    <div style="margin-bottom: 12px;"><strong>Attended</strong> First Toronto Langchain Meetup Sponsored by Cohere AI <em>(July 2023)</em></div>
-                    <div><strong>Attended</strong> <a href="https://firebase.google.com/summit/2022" target="_blank" style="color: var(--ios-blue); text-decoration: none;">Firebase Summit NYC 2022</a> <em>(October 2022)</em></div>
-                </div>
-            </div>
-        </div>
-
+        <!-- Main content panel -->
+        <main class="main-panel" id="main-panel">
+            <!-- injected by JS -->
+        </main>
     </div>
+</div>
 
-    <script>
-        function dismissAlert() {
-            const overlay = document.getElementById('alert-overlay');
-            const mainContent = document.getElementById('main-content');
-            
-            overlay.style.opacity = '0';
-            
-            setTimeout(() => {
-                overlay.style.display = 'none';
-                mainContent.classList.add('active');
-            }, 300);
+<!-- iOS notification -->
+<div id="ios-notif">
+    <div id="notif-icon">
+        <img src="amjad.png" alt="">
+    </div>
+    <div id="notif-text">
+        <div id="notif-app"><span>Resume</span><span>now</span></div>
+        <div id="notif-title">Amjad Hassoun</div>
+        <div id="notif-body">New resume available — AI Engineer, Toronto</div>
+    </div>
+</div>
+
+<script>
+// ── Data ──────────────────────────────────────────────────────────────────────
+const RESUME_URL = 'resume.json';
+
+// Nav icon map keyed on section title
+const SECTION_ICONS = {
+    'Technical Skills': { icon: '⚙️', bg: '#636366' },
+    'Experience':       { icon: '💼', bg: '#007aff' },
+    'Projects':         { icon: '🛠️', bg: '#30d158' },
+    'Education':        { icon: '🎓', bg: '#ff9f0a' },
+    'Events & Awards':  { icon: '🏆', bg: '#ff375f' },
+};
+
+// ── Escape ────────────────────────────────────────────────────────────────────
+function esc(v = '') {
+    return String(v)
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function encHref(h='') { return encodeURI(h); }
+function isExt(h='') { return /^https?:\/\//i.test(h); }
+
+function linkAttr(href, opts={}) {
+    let a = `href="${esc(encHref(href))}"`;
+    if (opts.newTab || isExt(href)) a += ' target="_blank" rel="noreferrer"';
+    return a;
+}
+
+// ── Render helpers ────────────────────────────────────────────────────────────
+function renderBullets(bullets=[]) {
+    if (!bullets.length) return '';
+    return `<ul class="bullet-list">${bullets.map(b=>`<li>${esc(b)}</li>`).join('')}</ul>`;
+}
+
+function renderEntryLinks(links=[]) {
+    if (!links.length) return '';
+    return `<div class="entry-links-row">${links.map(l=>`
+        <a class="entry-link-chip" ${linkAttr(l.href)}>↗ ${esc(l.label)}</a>
+    `).join('')}</div>`;
+}
+
+// ── Profile section ───────────────────────────────────────────────────────────
+function renderProfile(data) {
+    const p = data.profile;
+    const highlights = (data.highlights||[]).map(h=>`<span class="chip">${esc(h)}</span>`).join('');
+
+    const contactRows = (p.contacts||[]).map(c=>`
+        <div class="settings-row">
+            <span class="settings-row-label">${esc(c.label)}</span>
+            <span class="settings-row-value"><a ${linkAttr(c.href)}>${esc(c.display)}</a></span>
+            <span class="settings-row-chevron">›</span>
+        </div>
+    `).join('');
+
+    return `
+        <div class="profile-hero">
+            <div class="profile-avatar-large">
+                <img src="${esc(p.photo)}" alt="${esc(p.photoAlt)}">
+            </div>
+            <div class="profile-name">${esc(p.name)}</div>
+            <div class="profile-eyebrow">${esc(p.eyebrow)}</div>
+            <p class="profile-summary">${esc(p.summary)}</p>
+        </div>
+
+        ${highlights ? `<div class="chip-row">${highlights}</div>` : ''}
+
+        <div style="height:16px"></div>
+
+        <div class="group-label">Contact</div>
+        <div class="settings-group">${contactRows}</div>
+    `;
+}
+
+// ── Skills section ────────────────────────────────────────────────────────────
+function renderFacts(section) {
+    const rows = section.items.map(item=>`
+        <div class="fact-row">
+            <div class="fact-label">${esc(item.label)}</div>
+            <div class="fact-value">${esc(item.text)}</div>
+        </div>
+    `).join('');
+    return `<div class="facts-group">${rows}</div>`;
+}
+
+// ── Experience / Projects ─────────────────────────────────────────────────────
+function renderEntries(section) {
+    return section.items.map(entry => {
+        // Entry with sub-roles (e.g. TFS)
+        if (entry.roles && entry.roles.length) {
+            const rolesHtml = entry.roles.map(role=>`
+                <div class="role-block${role.muted?' role-muted':''}">
+                    <div class="role-name-row">
+                        <div class="role-name">${esc(role.title)}</div>
+                        <div class="role-dates-inline">${esc(role.dates)}</div>
+                    </div>
+                    ${renderBullets(role.bullets||[])}
+                </div>
+            `).join('');
+
+            return `
+                <div class="entry-group">
+                    <div class="entry-header-row">
+                        <div class="entry-org">${esc(entry.title)}</div>
+                        <div class="entry-dates">${esc(entry.dates)}</div>
+                    </div>
+                    ${entry.location ? `<div class="entry-location">${esc(entry.location)}</div>` : ''}
+                    <div class="entry-divider"></div>
+                    ${rolesHtml}
+                    ${renderEntryLinks(entry.links||[])}
+                </div>
+            `;
         }
-    </script>
+
+        // Entry with notes only (event rows)
+        if (entry.notes && entry.notes.length && !entry.title) {
+            const noteRows = entry.notes.map(n=>`<div class="note-row">${n}</div>`).join('');
+            return `<div class="entry-group">${noteRows}</div>`;
+        }
+
+        // Award entry
+        if (entry.subtitle && entry.subtitle.toLowerCase().includes('place')) {
+            return `
+                <div class="entry-group">
+                    <div class="award-row">
+                        <div>
+                            <div class="award-title">${esc(entry.title)}</div>
+                            <div style="font-size:12px;color:var(--text-muted);margin-top:2px">${esc(entry.dates)}</div>
+                        </div>
+                        <div class="award-badge">🥇 ${esc(entry.subtitle)}</div>
+                    </div>
+                    ${(entry.bullets||[]).length ? `<div style="padding:0 16px 14px">${renderBullets(entry.bullets)}</div>` : ''}
+                    ${renderEntryLinks(entry.links||[])}
+                </div>
+            `;
+        }
+
+        // Simple entry (education, project, etc.)
+        const meta = [entry.location, entry.dates].filter(Boolean);
+        return `
+            <div class="entry-group">
+                <div class="simple-entry">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                        <div>
+                            <div class="entry-org">${esc(entry.title||'')}</div>
+                            ${entry.subtitle ? `<div class="simple-entry-sub">${esc(entry.subtitle)}</div>` : ''}
+                        </div>
+                        ${meta.length ? `<div class="entry-dates">${meta.map(esc).join(' · ')}</div>` : ''}
+                    </div>
+                    ${(entry.bullets||[]).length ? `<div style="margin-top:10px">${renderBullets(entry.bullets)}</div>` : ''}
+                </div>
+                ${renderEntryLinks(entry.links||[])}
+            </div>
+        `;
+    }).join('');
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function render(data) {
+    const nav  = document.getElementById('sidebar-nav');
+    const panel = document.getElementById('main-panel');
+
+    // Sidebar profile click
+    document.querySelector('.sidebar-profile').addEventListener('click', () => activate('profile'));
+
+    // Build nav items
+    const navHTML = data.sections.map(s => {
+        const meta = SECTION_ICONS[s.title] || { icon: '📄', bg: '#8e8e93' };
+        return `
+            <div class="nav-item" data-target="section-${slugify(s.title)}">
+                <div class="nav-icon" style="background:${meta.bg}">
+                    <span>${meta.icon}</span>
+                </div>
+                <span class="nav-label">${esc(s.title)}</span>
+            </div>
+        `;
+    }).join('');
+
+    nav.innerHTML = navHTML;
+
+    // Build content panels
+    let panelHTML = `
+        <div class="content-section active" id="panel-profile">
+            ${renderProfile(data)}
+        </div>
+    `;
+
+    data.sections.forEach(s => {
+        const id = `panel-section-${slugify(s.title)}`;
+        const body = s.kind === 'facts' ? renderFacts(s) : renderEntries(s);
+        panelHTML += `
+            <div class="content-section" id="${id}">
+                <div class="panel-heading">${esc(s.title)}</div>
+                ${body}
+            </div>
+        `;
+    });
+
+    panel.innerHTML = panelHTML;
+
+    // Nav click handlers
+    nav.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => activate(item.dataset.target));
+    });
+
+    // Search filter
+    document.getElementById('sidebar-search').addEventListener('input', function() {
+        const q = this.value.toLowerCase();
+        nav.querySelectorAll('.nav-item').forEach(item => {
+            const label = item.querySelector('.nav-label').textContent.toLowerCase();
+            item.style.display = (!q || label.includes(q)) ? '' : 'none';
+        });
+    });
+}
+
+function activate(target) {
+    // Deactivate all sidebar items
+    document.querySelectorAll('.nav-item, .sidebar-profile').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+
+    if (target === 'profile') {
+        document.querySelector('.sidebar-profile').classList.add('active');
+        document.getElementById('panel-profile').classList.add('active');
+    } else {
+        const navItem = document.querySelector(`[data-target="${target}"]`);
+        if (navItem) navItem.classList.add('active');
+        const panel = document.getElementById(`panel-${target}`);
+        if (panel) panel.classList.add('active');
+    }
+
+    document.getElementById('main-panel').scrollTop = 0;
+}
+
+function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+// ── Load ──────────────────────────────────────────────────────────────────────
+fetch(RESUME_URL, { cache: 'no-store' })
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(err => {
+        document.getElementById('main-panel').innerHTML = `
+            <div style="padding:40px;color:var(--text-secondary);font-size:14px;line-height:1.7">
+                <strong>Couldn't load resume.json</strong><br>
+                Make sure the file is in the same folder and you're serving over HTTP (not file://).<br><br>
+                Error: ${esc(String(err))}
+            </div>
+        `;
+    });
+
+// ── Notification ──────────────────────────────────────────────────────────────
+(function() {
+    const notif = document.getElementById('ios-notif');
+    function dismiss() {
+        notif.classList.remove('show');
+        notif.classList.add('hide');
+    }
+    setTimeout(() => notif.classList.add('show'), 900);
+    setTimeout(dismiss, 5900);
+    notif.addEventListener('click', dismiss);
+})();
+</script>
+
 </body>
 </html>

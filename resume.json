@@ -1,0 +1,176 @@
+{
+  "profile": {
+    "name": "Amjad Hassoun",
+    "eyebrow": "AI Engineer / Systems Administrator / Product Builder",
+    "summary": "I build practical AI-enabled products, dependable school systems, and polished web experiences that make complex technology easier to use in the real world.",
+    "photo": "amjad.png",
+    "photoAlt": "Amjad Hassoun presenting in front of a projected slide.",
+    "contacts": [
+      {
+        "label": "Email",
+        "display": "mail@amjadhassoun.com",
+        "href": "mailto:mail@amjadhassoun.com"
+      },
+      {
+        "label": "LinkedIn",
+        "display": "linkedin.com/in/amjadhassoun",
+        "href": "https://linkedin.com/in/amjadhassoun"
+      },
+      {
+        "label": "GitHub",
+        "display": "github.com/amjadhassoun123123",
+        "href": "https://github.com/amjadhassoun123123"
+      }
+    ]
+  },
+  "highlights": [
+    "Generative AI / RAG / LangChain",
+    "Cloud systems and identity management",
+    "Product-minded web application development",
+    "Toronto, ON"
+  ],
+  "sections": [
+    {
+      "title": "Technical Skills",
+      "kind": "facts",
+      "items": [
+        {
+          "label": "Languages",
+          "text": "Python, JavaScript, TypeScript, HTML/CSS"
+        },
+        {
+          "label": "AI & Machine Learning",
+          "text": "Generative AI (LLMs), RAG, LangChain"
+        },
+        {
+          "label": "Developer Tools",
+          "text": "Git, Google Cloud Platform (GCP), Firebase, Canvas LMS API, XCode"
+        },
+        {
+          "label": "Soft Skills",
+          "text": "Bilingual (English/French), Technical Presentations, Agile Methodology, Client Relations"
+        }
+      ]
+    },
+    {
+      "title": "Experience",
+      "kind": "entries",
+      "items": [
+        {
+          "title": "Toronto French School (TFS)",
+          "location": "Toronto, ON",
+          "dates": "Sept 2023 - Present",
+          "roles": [
+            {
+              "title": "Ingénieur en IA et Administrateur Système",
+              "dates": "Août 2024 - Présent",
+              "bullets": [
+                "Superviser les systèmes cloud, renforcer la sécurité et soutenir l'intégration de Gemini (Google AI).",
+                "Concevoir et déployer des applications web pour l'administration scolaire et les inscriptions.",
+                "Maintenir l'Active Directory de TFS et Google Workspace pour l'ensemble de l'organisation."
+              ]
+            },
+            {
+              "title": "Spécialiste S.T.E.A.M.",
+              "dates": "Sept 2023 - Juil 2024",
+              "muted": true,
+              "bullets": [
+                "Présenter la technologie de l'IA aux élèves et encourager l'évaluation critique de son éthique.",
+                "Créer des démonstrations d'IA en exploitant des modèles de pointe (LLMs, Generative AI).",
+                "Collaborer avec la Tech Society pour intégrer l'IA générative dans les initiatives élèves."
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Spurry Inc",
+          "subtitle": "iOS App Developer",
+          "location": "Remote",
+          "dates": "May 2022 - Sep 2023",
+          "bullets": [
+            "Co-developed the askCody chatbot and an adaptive AI-driven flashcard system for personalized learning.",
+            "Developed an offline Python interpreter on iOS to streamline coding processes and enhance privacy.",
+            "Collaborated on education-focused mobile apps, improving programming learning experiences."
+          ],
+          "links": [
+            {
+              "label": "Python Academy on the App Store",
+              "href": "https://apps.apple.com/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Projects",
+      "kind": "entries",
+      "items": [
+        {
+          "title": "Outlier",
+          "subtitle": "Data Scientist / AI Training",
+          "dates": "March 2024 - Aug 2025",
+          "bullets": [
+            "Analyzed AI model responses for the reinforcement learning (RLHF) team to improve response quality.",
+            "Evaluated correctness, logic, and safety performance across different Large Language Models (LLMs).",
+            "Synthesized complex data into actionable insights to refine model training algorithms."
+          ]
+        },
+        {
+          "title": "Q-Tools Chrome Extension",
+          "subtitle": "JavaScript / Canvas API / AI Integration",
+          "dates": "Dec 2023 - April 2024",
+          "bullets": [
+            "Developed a Chrome Extension to expand and customize the interface of the Canvas LMS.",
+            "Integrated AI capabilities enabling users to chat with modules, add notes, and query content directly.",
+            "Scalable solution currently used to assist students in interfacing with external content."
+          ],
+          "links": [
+            {
+              "label": "Q-Tools Website",
+              "href": "https://studenthub.study/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Education",
+      "kind": "entries",
+      "items": [
+        {
+          "title": "University of Toronto",
+          "subtitle": "Honours Bachelor of Science in Computer Science",
+          "location": "Mississauga, ON",
+          "dates": "Sept 2019 - Apr 2024"
+        }
+      ]
+    },
+    {
+      "title": "Events & Awards",
+      "kind": "entries",
+      "items": [
+        {
+          "title": "Scotiabank Hackathon S:HA<KS 2021",
+          "subtitle": "First Place Winner",
+          "dates": "Sep 2021",
+          "bullets": [
+            "Won 1st place by creating an accessible fintech solution for Scotiabank's digital offerings."
+          ],
+          "links": [
+            {
+              "label": "UTM News Feature",
+              "href": "https://www.utm.utoronto.ca/math-cs-stats/news/mcs-students-win-1st-place-scotiabanks-shacks-hackathon"
+            }
+          ]
+        },
+        {
+          "notes": [
+            "<strong>Presented Q-Tools</strong> at <a href=\"https://toronto.aitinkerers.org/p/ai-tinkerers-toronto-inaugural-meetup\" target=\"_blank\" rel=\"noreferrer\">AI Tinkerers Toronto - Inaugural Meetup</a> <em>(April 2024)</em>",
+            "<strong>Attended</strong> First Toronto LangChain Meetup sponsored by Cohere AI <em>(July 2023)</em>",
+            "<strong>Attended</strong> <a href=\"https://firebase.google.com/summit/2022\" target=\"_blank\" rel=\"noreferrer\">Firebase Summit NYC 2022</a> <em>(October 2022)</em>"
+          ]
+        }
+      ]
+    }
+  ]
+}
