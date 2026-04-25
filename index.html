@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Amjad Hassoun - Resume</title>
+    <style>
+        /* Base Reset & iOS Typography */
+        :root {
+            --ios-bg: #F2F2F7;
+            --ios-card: #FFFFFF;
+            --ios-text: #000000;
+            --ios-subtext: #8E8E93;
+            --ios-blue: #007AFF;
+            --ios-border: #C6C6C8;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --ios-bg: #1C1C1E;
+                --ios-card: #2C2C2E;
+                --ios-text: #FFFFFF;
+                --ios-subtext: #EBEBF5;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--ios-bg);
+            color: var(--ios-text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- iOS Alert Overlay --- */
+        #alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+
+        .alert-box {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 270px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @supports (color: color-mix(in srgb, white, black)) {
+            @media (prefers-color-scheme: dark) {
+                .alert-box {
+                    background: rgba(30, 30, 30, 0.75);
+                }
+            }
+        }
+
+        .alert-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 18px 16px 2px;
+        }
+
+        .alert-message {
+            font-size: 13px;
+            margin: 0 16px 16px;
+            line-height: 1.3;
+        }
+
+        .alert-actions {
+            display: flex;
+            border-top: 0.5px solid var(--ios-border);
+        }
+
+        .alert-btn {
+            flex: 1;
+            padding: 11px 0;
+            font-size: 17px;
+            color: var(--ios-blue);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .alert-btn.cancel {
+            border-right: 0.5px solid var(--ios-border);
+            font-weight: 400;
+        }
+
+        .alert-btn.accept {
+            font-weight: 600;
+        }
+
+        /* --- Main Content Container --- */
+        #main-content {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.3; /* Initially blurred via overlay */
+            transition: opacity 0.3s ease;
+        }
+
+        #main-content.active {
+            opacity: 1;
+        }
+
+        /* --- iOS Settings Style Cards --- */
+        .header-profile {
+            text-align: center;
+            margin: 20px 0 30px;
+        }
+
+        .header-profile h1 {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 0 0 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .contact-links a {
+            color: var(--ios-blue);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            background: var(--ios-card);
+            padding: 6px 12px;
+            border-radius: 12px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .download-btn {
+            margin-top: 16px;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 999px;
+            background: var(--ios-blue);
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(0, 122, 255, 0.2);
+        }
+
+        .download-btn:hover {
+            filter: brightness(0.95);
+        }
+
+        .download-btn:focus-visible {
+            outline: 2px solid var(--ios-blue);
+            outline-offset: 3px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--ios-subtext);
+            margin: 20px 0 8px 16px;
+        }
+
+        .card-group {
+            background-color: var(--ios-card);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-item {
+            padding: 16px;
+            border-bottom: 0.5px solid var(--ios-border);
+        }
+
+        .card-item:last-child {
+            border-bottom: none;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-subtitle {
+            font-size: 15px;
+            color: var(--ios-subtext);
+            margin: 0;
+        }
+
+        .card-date {
+            font-size: 13px;
+            color: var(--ios-subtext);
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .card-body {
+            font-size: 15px;
+            line-height: 1.4;
+            color: var(--ios-text);
+        }
+
+        .card-body ul {
+            margin: 8px 0 0;
+            padding-left: 20px;
+        }
+
+        .card-body li {
+            margin-bottom: 6px;
+        }
+
+        .badge {
+            font-weight: 600;
+        }
+
+        .btn-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--ios-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes popIn {
+            0% { transform: scale(1.1); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media print {
+            @page {
+                margin: 0.6in;
+                size: letter;
+            }
+
+            button,
+            #alert-overlay,
+            .download-btn {
+                display: none !important;
+            }
+
+            body,
+            #main-content {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+            }
+
+            body {
+                font-family: "Times New Roman", Times, serif;
+                overflow: visible;
+            }
+
+            #main-content {
+                max-width: none;
+                padding: 0;
+                margin: 0;
+                opacity: 1 !important;
+            }
+
+            .header-profile {
+                margin: 0 0 18px;
+            }
+
+            .header-profile h1 {
+                font-size: 24pt;
+                margin-bottom: 10px;
+            }
+
+            .section-title {
+                margin: 18px 0 6px;
+                padding-bottom: 4px;
+                font-size: 11pt;
+                color: #000000;
+                border-bottom: 1px solid #000000;
+            }
+
+            .card-group {
+                background: transparent !important;
+                box-shadow: none !important;
+                border-radius: 0;
+                margin-bottom: 10px;
+                overflow: visible;
+            }
+
+            .card-item {
+                padding: 0 !important;
+                border: none !important;
+                margin-bottom: 14px;
+                break-inside: avoid;
+            }
+
+            .card-header {
+                margin-bottom: 4px;
+            }
+
+            .card-title,
+            .badge,
+            strong {
+                color: #000000;
+            }
+
+            .card-subtitle,
+            .card-date,
+            .card-body,
+            .alert-title,
+            .alert-message {
+                color: #000000 !important;
+            }
+
+            .card-date {
+                font-size: 10pt;
+            }
+
+            .card-body {
+                font-size: 11pt;
+                line-height: 1.35;
+            }
+
+            .btn-link,
+            .contact-links a,
+            a {
+                color: #000000 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                text-decoration: none;
+                padding: 0;
+            }
+
+            .contact-links {
+                display: block;
+                text-align: center;
+            }
+
+            .contact-links a {
+                display: inline;
+                margin: 0 8px;
+            }
+
+            ul {
+                margin-top: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- iOS Notification Alert -->
+    <div id="alert-overlay">
+        <div class="alert-box">
+            <div class="alert-title">iMessage</div>
+            <div class="alert-message">Amjad Hassoun has shared his resume with you</div>
+            <div class="alert-actions">
+                <button class="alert-btn cancel" onclick="alert('Try again. 😅')">Cancel</button>
+                <button class="alert-btn accept" onclick="dismissAlert()">Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App/Resume Container -->
+    <div id="main-content">
+        
+        <div class="header-profile">
+            <h1>Amjad Hassoun</h1>
+            <div class="contact-links">
+                <a href="mailto:mail@amjadhassoun.com">📧 Email</a>
+                <a href="https://linkedin.com/in/amjadhassoun" target="_blank">💼 LinkedIn</a>
+                <a href="https://github.com/amjadhassoun123123" target="_blank">💻 GitHub</a>
+            </div>
+            <button onclick="window.print()" class="download-btn" type="button">Download PDF</button>
+        </div>
+
+        <div class="section-title">Technical Skills</div>
+        <div class="card-group">
+            <div class="card-item">
+                <div class="card-body">
+                    <div style="margin-bottom: 8px;"><span class="badge">Languages:</span> Python, JavaScript, TypeScript, HTML/CSS</div>
+                    <div style="margin-bottom: 8px;"><span class="badge">AI & Machine Learning:</span> Generative AI (LLMs), RAG, LangChain</div>
+                    <div style="margin-bottom: 8px;"><span class="badge">Developer Tools:</span> Git, Google Cloud Platform (GCP), Firebase, Canvas LMS API, XCode</div>
+                    <div><span class="badge">Soft Skills:</span> Bilingual (English/French), Technical Presentations, Agile Methodology, Client Relations</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Experience</div>
+        <div class="card-group">
+            
+            <!-- Job 1 & 2 (TFS Progression) -->
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Toronto French School (TFS)</h3>
+                    </div>
+                    <div class="card-date">Toronto, ON<br>Sept 2023 - Présent</div>
+                </div>
+                <div class="card-body" style="margin-top: 16px;">
+                    <!-- Role 1 -->
+                    <div style="position: relative; padding-left: 20px; border-left: 2px solid var(--ios-border); padding-bottom: 16px;">
+                        <div style="position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ios-blue);"></div>
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 2px;">Ingénieur en IA et Administrateur Système</div>
+                        <div style="font-size: 13px; color: var(--ios-subtext); margin-bottom: 8px;">Août 2024 - Présent</div>
+                        <ul>
+                            <li>Superviser les systèmes cloud, renforcer la sécurité et soutenir l'intégration de Gemini (Google AI).</li>
+                            <li>Concevoir et déployer des applications web pour l'administration scolaire et les inscriptions.</li>
+                            <li>Maintenir l'Active Directory de TFS et Google Workspace pour l'ensemble de l'organisation.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Role 2 -->
+                    <div style="position: relative; padding-left: 20px; border-left: 2px solid transparent;">
+                        <div style="position: absolute; left: -6px; top: 4px; width: 10px; height: 10px; border-radius: 50%; background: var(--ios-subtext);"></div>
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 2px;">Spécialiste S.T.E.A.M.</div>
+                        <div style="font-size: 13px; color: var(--ios-subtext); margin-bottom: 8px;">Sept 2023 - Juil 2024</div>
+                        <ul>
+                            <li>Présenter la technologie de l'IA aux élèves et encourager l'évaluation critique de son éthique.</li>
+                            <li>Créer des démonstrations d'IA en exploitant des modèles de pointe (LLMs, Generative AI).</li>
+                            <li>Collaborer avec la Tech Society pour intégrer l'IA générative dans les initiatives élèves.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Spurry Inc</h3>
+                        <p class="card-subtitle">iOS App Developer</p>
+                    </div>
+                    <div class="card-date">Remote<br>May 2022 - Sep 2023</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Co-developed the askCody chatbot and an adaptive AI-driven flashcard system for personalized learning.</li>
+                        <li>Developed an offline Python interpreter on iOS to streamline coding processes and enhance privacy.</li>
+                        <li>Collaborated on education-focused mobile apps, improving programming learning experiences.</li>
+                    </ul>
+                    <a href="https://apps.apple.com/" class="btn-link" target="_blank">↗ Python Academy on the App Store</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Projects</div>
+        <div class="card-group">
+            
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Outlier</h3>
+                        <p class="card-subtitle">Data Scientist - AI Training</p>
+                    </div>
+                    <div class="card-date">March 2024 - Aug 2025</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Analyzed AI model responses for the reinforcement learning (RLHF) team to improve response quality.</li>
+                        <li>Evaluated correctness, logic, and safety performance across different Large Language Models (LLMs).</li>
+                        <li>Synthesized complex data into actionable insights to refine model training algorithms.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Q-Tools Chrome Extension</h3>
+                        <p class="card-subtitle">JavaScript, Canvas API, AI Integration</p>
+                    </div>
+                    <div class="card-date">Dec 2023 - April 2024</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Developed a Chrome Extension to expand and customize the interface of the Canvas LMS.</li>
+                        <li>Integrated AI capabilities enabling users to chat with modules, add notes, and query content directly.</li>
+                        <li>Scalable solution currently used to assist students in interfacing with external content.</li>
+                    </ul>
+                    <a href="https://studenthub.study/" class="btn-link" target="_blank">↗ Q-Tools Website</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-title">Education</div>
+        <div class="card-group">
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">University of Toronto</h3>
+                        <p class="card-subtitle">Honours Bachelor of Science in Computer Science</p>
+                    </div>
+                    <div class="card-date">Mississauga, ON<br>Sept 2019 - Apr 2024</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">Events & Awards</div>
+        <div class="card-group">
+            <div class="card-item">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">Scotiabank Hackathon S:\HA&lt;KS 2021</h3>
+                        <p class="card-subtitle">First Place Winner</p>
+                    </div>
+                    <div class="card-date">Sep 2021</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Won 1st place by creating an accessible fintech solution for Scotiabank's digital offerings.</li>
+                    </ul>
+                    <a href="https://www.utm.utoronto.ca/math-cs-stats/news/mcs-students-win-1st-place-scotiabanks-shacks-hackathon" class="btn-link" target="_blank">↗ UTM News Feature</a>
+                </div>
+            </div>
+            
+            <div class="card-item">
+                <div class="card-body" style="padding-top: 4px;">
+                    <div style="margin-bottom: 12px;"><strong>Presented Q-Tools</strong> at <a href="https://toronto.aitinkerers.org/p/ai-tinkerers-toronto-inaugural-meetup" target="_blank" style="color: var(--ios-blue); text-decoration: none;">AI Tinkerers Toronto - Inaugural Meetup</a> <em>(April 2024)</em></div>
+                    <div style="margin-bottom: 12px;"><strong>Attended</strong> First Toronto Langchain Meetup Sponsored by Cohere AI <em>(July 2023)</em></div>
+                    <div><strong>Attended</strong> <a href="https://firebase.google.com/summit/2022" target="_blank" style="color: var(--ios-blue); text-decoration: none;">Firebase Summit NYC 2022</a> <em>(October 2022)</em></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function dismissAlert() {
+            const overlay = document.getElementById('alert-overlay');
+            const mainContent = document.getElementById('main-content');
+            
+            overlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.classList.add('active');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
